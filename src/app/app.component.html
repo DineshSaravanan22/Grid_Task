@@ -1,0 +1,16 @@
+<nav class=" navbar navbar-light bg-light ">
+  <div class="container-fluid">
+    <a class="navbar-brand">Header Information</a>
+    <app-addbutton (firstEvent)="addForm($event)"></app-addbutton>
+    <!-- <button class="btn btn-success" >Add</button> -->
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+   <div class="col-12">
+    <ag-grid-angular [rowData]="gridData" [columnDefs]="colDefs" class="ag-theme-quartz"style="height: 500px;">
+    </ag-grid-angular>
+   </div>
+  </div>
+</div>
+

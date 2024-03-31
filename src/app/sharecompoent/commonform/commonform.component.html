@@ -1,0 +1,207 @@
+<form class="mx-2" [formGroup]="userForm">
+    <div class="row">
+      <nav class="navbar navbar-light bg-success">
+        <div class="container-fluid">
+          <div class="navbar-brand mb-0 h1 p-2" *ngIf="data.mode !='edit'">Add Information</div>
+          <div class="navbar-brand mb-0 h1 p-2" *ngIf="data.mode =='edit'">Edit Information</div>
+          <div>
+            
+            <i class="bi bi-x-lg close-icon" (click)="closeFuc()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+              </svg></i>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="row my-3">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label>Yard</mat-label>
+          <select matNativeControl required formControlName="Yard" name="Yard" (change)="onYard()">
+            <option value="HK">HK</option>
+            <option value="AU">AU</option>
+            <option value="OT">OT</option>
+          </select>
+        </mat-form-field>
+        <div class="error-field" *ngIf="vyard && vyard.invalid && vyard.touched"> *Yard is required</div>
+      </div>
+      <div class="col-3 ">
+        <mat-form-field>
+          <mat-label>Liner Name</mat-label>
+          <select matNativeControl required formControlName="LinerName" name="LinerName">
+            <option value="JACK">JACK</option>
+            <option value="SAMSON">SAMSON</option>
+            <option value="JOHN">JOHN</option>
+          </select>
+        </mat-form-field>
+        <div class="error-field" *ngIf="vlinerName && userForm.controls.LinerName.errors?.['required'] && vlinerName.touched"> *linerName  is required</div>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Reference Number</mat-label>
+          <input  matInput formControlName="ReferenceNumber" >
+        </mat-form-field>
+        <!-- <div class="error-field" *ngIf="vname && userForm.controls.ReferenceNumber.errors?.['required'] && vname.touched"> *Reference Number is required</div>
+      <div class="error-field" *ngIf="vname && userForm.controls.ReferenceNumber.errors?.['pattern'] && vname.touched"> *Reference Number is  First 4 digit is character, and last 6 is number</div> -->
+    </div>
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label>Types</mat-label>
+          <select matNativeControl required formControlName="Type" name="Type">
+            <option value="Type 1">Type 1</option>
+            <option value="Type 2">Type 2</option>
+          </select>
+        </mat-form-field>
+        <!-- <div class="error-field" *ngIf="vtype && userForm.controls.Type.errors?.['required'] && vtype.touched"> *Types is required</div> -->
+      </div>
+    </div>
+    <div class="row input-align ">
+      <div class="col-3">
+        <mat-form-field id="mat-date-input">
+          <mat-label>Booking Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="BookingDate" name=" BookingDate"  value="{{bookingDate|date:'dd/MM/yyyy'}}">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!-- <div class="error-field" *ngIf="vbookingDate && userForm.controls.BookingDate.errors?.['required'] && vbookingDate.touched"> *BookingDate is required</div> -->
+      </div>
+      <div class="col-3">
+        <mat-form-field id="mat-date-input">
+          <mat-label>Booking Validity</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="BookingValidity" name=" BookingValidity" [min]="vbookingDate?.value">
+          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <div class="error-field" *ngIf="vbookingValidity && userForm.controls.BookingValidity.errors?.['required'] && vbookingValidity.touched"> *BookingValidity is required</div>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Release To</mat-label>
+          <input matInput formControlName="ReleaceTo" name="ReleaceTo">
+        </mat-form-field>
+        <div class="error-field" *ngIf="vreleseTo && userForm.controls.ReleaceTo.errors?.['required'] && vreleseTo.touched"> *ReleseTo is required</div>
+        <div class="error-field" *ngIf="vreleseTo && userForm.controls.ReleaceTo.errors?.['pattern'] && vreleseTo.touched"> *Please enter a valid Liner Name (alphanumeric characters only).</div>
+      <!-- <div class="error-field" *ngIf="vreleseTo && vreleseTo.invalid && vreleseTo.touched "> *Please enter a valid Liner Name (alphanumeric characters only).</div> -->
+      </div>
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label>Vessel Carrier</mat-label>
+          <select matNativeControl required formControlName="VesselCarrier" name="VesselCarrier">
+            <option value="MAERSK">MAERSK</option>
+            <option value="CMGCM">CMGCM</option>
+            <option value="MSC">MSC</option>
+          </select>
+        </mat-form-field>
+        <div class="error-field" *ngIf="gvesselCarrier && userForm.controls.VesselCarrier.errors?.['required'] && gvesselCarrier.touched"> *VesselCarrier is required</div>
+      </div>
+    </div>
+    <div class="row input-align">
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Vessel Name</mat-label>
+          <input matInput formControlName="VesselName" name="VesselName">
+        </mat-form-field>
+        <div class="error-field" *ngIf="gvesselName && userForm.controls.VesselName.errors?.['required'] && gvesselName.touched"> *VesselName is required</div>
+        <div class="error-field" *ngIf="gvesselName && userForm.controls.VesselName.errors?.['pattern'] && gvesselName.touched"> *Vessel Name is alphanumeric</div>
+        <!-- <div class="error-field" *ngIf="gvesselName && gvesselName.invalid && gvesselName.touched" > *Vessel Name is alphanumeric</div> -->
+      </div>
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Voyage Number</mat-label>
+          <input matInput formControlName="VoyageNumber" name="VoyageNumber">
+        </mat-form-field>
+        <div class="error-field" *ngIf="gvoyageNumber && userForm.controls.VoyageNumber.errors?.['required'] && gvoyageNumber.touched"> *VoyageNumber Number is required</div>
+        <div class="error-field" *ngIf="gvoyageNumber && userForm.controls.VoyageNumber.errors?.['pattern'] && gvoyageNumber.touched"> *Please enter a valid Voyage Number (must be an integer).</div>
+        <!-- <div class="error-field" *ngIf="gvoyageNumber && gvoyageNumber.invalid && gvoyageNumber.touched" > *Please enter a valid Voyage Number (must be an integer).</div> -->
+      </div>
+      <div class="col-3">
+        <mat-form-field id="mat-date-input">
+          <mat-label>Arrival Date*</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="ArrivalDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <div class="error-field" *ngIf="varrivalDate && userForm.controls.ArrivalDate.errors?.['required'] && varrivalDate.touched"> *ArrivalDate is required</div>
+      </div>
+      <div class="col-3">
+        <mat-form-field id="mat-date-input">
+          <mat-label>Departure Date</mat-label>
+          <input matInput [matDatepicker]="picker3" formControlName="DepartureDate" [min]="todayDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+        <div class="error-field" *ngIf="vdepartureDate && userForm.controls.DepartureDate.errors?.['required'] && vdepartureDate.touched"> *DepartureDate is required</div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Loading Port</mat-label>
+          <input matInput formControlName="LoadingPort" name="LoadingPort">
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Discharge Port</mat-label>
+          <input matInput formControlName="DischargePort" name="DischargePort">
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Destination</mat-label>
+          <input matInput formControlName="Distination" name="Distination">
+        </mat-form-field>
+      </div>
+      <div class="col-3"> <mat-form-field>
+          <mat-label>Status</mat-label>
+          <select matNativeControl required formControlName="Status" (change)="onSatus()">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Expired">Expired</option>
+          </select>
+        </mat-form-field>
+        <div class="error-field" *ngIf="vstatus && userForm.controls.Status.errors?.['required'] && vstatus.touched"> *Status is required</div>
+      </div>
+    </div>
+    <div class="row  input-align">
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Out Contract</mat-label>
+          <input matInput formControlName="OutContract" name="OutContract">
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>BL Number</mat-label>
+          <input matInput formControlName="BLNumber" name="BLNumber" maxlength="10">
+        </mat-form-field>
+        <div class="error-field" *ngIf="vblNumber && userForm.controls.BLNumber.errors?.['required'] && vblNumber.touched"> *BL Number is required</div>
+        <div class="error-field" *ngIf="vblNumber && userForm.controls.BLNumber.errors?.['pattern'] && vblNumber.touched"> *Please enter a valid BL Number (numeric characters only).</div>
+        <!-- <div class="error-field" *ngIf="vblNumber && vblNumber.invalid && vblNumber.touched" > *Please enter a valid BL Number (numeric characters only).</div> -->
+      </div>
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+          <mat-label>Remarks</mat-label>
+          <input matInput formControlName="Remarks" name="Remarks">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row input-align">
+      <div class="col-3"></div>
+      <div class="col-3"></div>
+      <div class="col-3"></div>
+      <div class="col-1" *ngIf="data.mode =='edit'">
+        <!-- <button class="btn btn-success add-button " type="submit" (click)="editFormfun()">Save</button>  -->
+        <app-savebutton  (saveEvent)="editFormfun()"></app-savebutton>
+      </div>
+      <div class="col-1" *ngIf="data.mode !='edit'">
+        <!-- <button class="btn btn-success add-button " type="submit" (click)="saveForm()">Save</button>  -->
+      <app-savebutton  (saveEvent)="saveForm()"></app-savebutton>
+      </div>
+      <div class="col-1">
+        <!-- <button class="btn btn-danger add-button "  type="submit" (click)="closeFuc()">cancel</button> -->
+        <app-cancelbutton (cencelEvent)="closeFuc()"></app-cancelbutton>
+      </div>
+    </div>
+  </form>

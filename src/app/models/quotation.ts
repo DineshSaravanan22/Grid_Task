@@ -1,0 +1,22 @@
+export interface AgGrid{
+    Id:string,
+    Yard:string,
+    LinerName:string,
+    ReferenceNumber:string,
+    Type:string,
+    BookingDate:Date,
+    BookingValidity:Date,
+    ReleaceTo:string,
+    VesselCarrier:string,
+    VesselName:string,
+    VoyageNumber:string,
+    ArrivalDate:Date,
+    DepartureDate:Date,
+    LoadingPort:string,
+    DischargePort:string,
+    Distination:string,
+    Status:string,
+    BLNumber:Number,
+    Remarks:string,
+
+}
